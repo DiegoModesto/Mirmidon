@@ -52,5 +52,11 @@ export default {
     paper: white
   },
   icon: colors.blueGrey[600],
+  iconLevel: {
+    critical: '#1A1A1A',
+    high: '#AD0000',
+    mid: '#72254E',
+    low: '#FFF500'
+  },
   divider: colors.grey[200]
 }

@@ -189,4 +189,4 @@ function draw() {
 
 export default {
   draw
-};
+}
