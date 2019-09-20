@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import PropTypes from 'prop-types'
 import validate from 'validate.js'
 import { authenticationService } from '../../services'
+import { useSnackbar } from 'notistack'
 import { withRouter } from 'react-router-dom'
 import { makeStyles } from '@material-ui/styles'
 import {
@@ -12,10 +13,11 @@ import {
 
 //Schema do formulário
 const schema = {
-    email: {
+    user: {
         presence: { allowEmpty: false, message: 'E-mail é obrigatório' },
-        email: true,
+        email: false,
         length: {
+            min: 11,
             maximum: 64
         }
     },
@@ -124,7 +126,8 @@ const useStyles = makeStyles(theme => ({
 const SignIn = props => {
     const { history } = props
     const classes = useStyles()
-
+    const { enqueueSnackbar } = useSnackbar()
+    
     const [formState, setFormState] = useState({
         isvalid: false,
         values: {},
@@ -163,10 +166,29 @@ const SignIn = props => {
 
     const handleSingnIn = event => {
         event.preventDefault()
-        debugger
-        //authenticationService.login('esec', 'esec')
+        enqueueSnackbar('Porra véi', {
+            variant: 'error', 
+            preventDuplicate: true,
+            anchorOrigin: {
+                vertical: 'bottom',
+                horizontal: 'center'
+            }
+        })
+        
+        //enqueueSnackbar('Teste lindo')
+        //201909192212
+        //eSecurity@1qaz2wsx
 
-        //history.push('/')
+        /*authenticationService.login(formState.values.user, formState.values.password)
+        .then(x => {
+            debugger;
+
+            //history.push('/')
+        }).catch(x => {
+            debugger;
+
+
+        })*/
     }
 
     const hasError = field => 
@@ -209,14 +231,14 @@ const SignIn = props => {
                                 />
                                 <TextField
                                     className={classes.textField}
-                                    error={hasError('email')}
+                                    error={hasError('user')}
                                     fullWidth
-                                    helperText={hasError('email') ? formState.errors.email[0] : null}
-                                    label="E-mail"
-                                    name="email"
+                                    helperText={hasError('user') ? formState.errors.user[0] : null}
+                                    label="Usuário"
+                                    name="user"
                                     onChange={handleChange}
                                     type="text"
-                                    value={formState.values.email || ''}
+                                    value={formState.values.user || ''}
                                     variant="outlined"
                                 />
                                 <TextField

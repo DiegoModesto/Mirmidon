@@ -10,8 +10,8 @@ export function handleResponse(response) {
                 window.location.reload(true)
             }
     
-            const error = (data && data.message) || response.statusText
-            return Promise.reject(error)
+            let errors = data.errors || []
+            return Promise.reject({ errors })
         }
 
         return data

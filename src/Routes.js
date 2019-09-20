@@ -17,14 +17,15 @@ const Routes = () => {
         <Switch>
             <Redirect exact from="/" to="/dashboard" />
             <RouteWithLayout
-                component={DashboardView}
                 exact
+                component={DashboardView}
                 layout={MainLayout}
                 path="/dashboard"
             />
             <RouteWithLayout 
+                exact
+                allowAnonymous
                 component={SignInView} 
-                exact 
                 layout={MinimalLayout}
                 path={"/sign-in"}
             />
